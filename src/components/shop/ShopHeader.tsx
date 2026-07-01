@@ -21,7 +21,6 @@ export default function ShopHeader({ cartCount = 0 }: ShopHeaderProps) {
   const navItems = [
     { label: "Femme", href: "/catalogue?category=PARFUMS_FEMME" },
     { label: "Homme", href: "/catalogue?category=PARFUMS_HOMME" },
-    { label: "Mixte", href: "/catalogue?category=PARFUMS_MIXTE" },
     { label: "Collection", href: "/catalogue" },
   ];
 
@@ -98,7 +97,7 @@ export default function ShopHeader({ cartCount = 0 }: ShopHeaderProps) {
           {/* Icons */}
           <div className="flex items-center gap-5">
             <Link
-              href="/dashboard"
+              href="/login"
               className="transition-colors duration-300"
               style={{ color: "#D4D0CC" }}
             >
