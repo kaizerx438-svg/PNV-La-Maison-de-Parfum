@@ -7,20 +7,65 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
-model User {
-  id          String   @id @default(cuid())
-  email       String   @unique
-  fullName    String
-  role        Role     @default(USER)
-  createdAt   DateTime @default(now())
 
-  products    Product[]
-  orders      Order[]
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  role          Role      @default(USER)
+
+  sessions      Session[]
+  accounts      Account[]
+  products      Product[]
+  orders        Order[]
 }
 
 enum Role {
   ADMIN
   USER
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
 model Category {
@@ -35,7 +80,7 @@ model Category {
 }
 
 model Product {
-  id              String        @id @default(cuid())
+  id              String         @id @default(cuid())
   name            String
   description     String?
   price           Float
@@ -47,18 +92,18 @@ model Product {
   notesTete       String?
   notesCoeur      String?
   notesFond       String?
-  stock           Int           @default(0)
-  status          ProductStatus @default(ACTIVE)
-  featured        Boolean       @default(false)
-  discountPercent Float         @default(0)
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  stock           Int            @default(0)
+  status          ProductStatus  @default(ACTIVE)
+  featured        Boolean        @default(false)
+  discountPercent Float          @default(0)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
 
   categoryId      String
-  category        Category      @relation(fields: [categoryId], references: [id])
+  category        Category       @relation(fields: [categoryId], references: [id])
 
   createdById     String
-  createdBy       User          @relation(fields: [createdById], references: [id])
+  createdBy       User           @relation(fields: [createdById], references: [id])
 
   orderItems      OrderItem[]
 }
