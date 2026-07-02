@@ -4,7 +4,6 @@ import { Mail, Phone, MapPin } from "lucide-react";
 const collections = [
   { label: "Parfums Femme", href: "/catalogue?category=PARFUMS_FEMME" },
   { label: "Parfums Homme", href: "/catalogue?category=PARFUMS_HOMME" },
-  { label: "Parfums Mixte", href: "/catalogue?category=PARFUMS_MIXTE" },
 ];
 
 const maison = [

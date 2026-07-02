@@ -24,9 +24,9 @@ interface CatalogueClientProps {
 
 const categoryLabels: Record<string, string> = {
   all: "Toutes les collections",
-  PARFUMS_FEMME: "Parfum Femme",
-  PARFUMS_HOMME: "Parfum Homme",
-  
+  PARFUMS_FEMME: "Parfums Femme",
+  PARFUMS_HOMME: "Parfums Homme",
+ 
 };
 
 export default function CatalogueClient({ products }: CatalogueClientProps) {
@@ -39,17 +39,23 @@ export default function CatalogueClient({ products }: CatalogueClientProps) {
 
   const filtered = useMemo(() => {
     let result = products.filter((p) => {
-      const matchCat = category === "all" || p.category.slug.toUpperCase().replace(/-/g, "_") === category;
+      const matchCat =
+        category === "all" ||
+        p.category.slug.toUpperCase().replace(/-/g, "_") === category;
       const matchSearch =
         !search || p.name.toLowerCase().includes(search.toLowerCase());
       return matchCat && matchSearch;
     });
 
-    if (sort === "price_asc") result = [...result].sort((a, b) => a.price - b.price);
-    if (sort === "price_desc") result = [...result].sort((a, b) => b.price - a.price);
-    if (sort === "newest") result = [...result].sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
+    if (sort === "price_asc")
+      result = [...result].sort((a, b) => a.price - b.price);
+    if (sort === "price_desc")
+      result = [...result].sort((a, b) => b.price - a.price);
+    if (sort === "newest")
+      result = [...result].sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
 
     return result;
   }, [products, category, search, sort]);
@@ -107,13 +113,19 @@ export default function CatalogueClient({ products }: CatalogueClientProps) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-10"
-            style={{ borderColor: "rgba(13,13,13,0.15)", background: "transparent" }}
+            style={{
+              borderColor: "rgba(13,13,13,0.15)",
+              background: "transparent",
+            }}
           />
         </div>
 
         <Select value={category} onValueChange={setCategory}>
           <SelectTrigger className="w-52">
-            <SlidersHorizontal className="w-4 h-4 mr-2" style={{ color: "#B0A898" }} />
+            <SlidersHorizontal
+              className="w-4 h-4 mr-2"
+              style={{ color: "#B0A898" }}
+            />
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -130,11 +142,25 @@ export default function CatalogueClient({ products }: CatalogueClientProps) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="newest">Plus récent</SelectItem>
+            <SelectItem value="newest">Plus recent</SelectItem>
             <SelectItem value="price_asc">Prix croissant</SelectItem>
-            <SelectItem value="price_desc">Prix décroissant</SelectItem>
+            <SelectItem value="price_desc">Prix decroissant</SelectItem>
           </SelectContent>
         </Select>
+      </div>
+
+      {/* Compteur résultats */}
+      <div className="mb-6 flex items-center justify-between">
+        <p
+          className="text-xs tracking-[0.2em] uppercase"
+          style={{
+            color: "rgba(13,13,13,0.4)",
+            fontFamily: "Helvetica Neue, Arial, sans-serif",
+          }}
+        >
+          {filtered.length} parfum{filtered.length > 1 ? "s" : ""}
+          {category !== "all" && ` — ${categoryLabels[category]}`}
+        </p>
       </div>
 
       {/* Grid */}
@@ -143,8 +169,11 @@ export default function CatalogueClient({ products }: CatalogueClientProps) {
           className="text-center py-20"
           style={{ color: "rgba(13,13,13,0.4)" }}
         >
-          <p className="text-lg font-light" style={{ fontFamily: "Georgia, serif" }}>
-            Aucun parfum trouvé
+          <p
+            className="text-lg font-light"
+            style={{ fontFamily: "Georgia, serif" }}
+          >
+            Aucun parfum trouve
           </p>
           <p className="text-sm mt-2">Essayez de modifier vos filtres</p>
         </div>
