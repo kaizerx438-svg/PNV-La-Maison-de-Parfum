@@ -9,26 +9,27 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String
-  email         String    @unique
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  role          Role      @default(USER)
-  phone         String?
-  address       String?
-  city          String?
-  postalCode    String?
-  country       String?   @default("FR")
+  id                String     @id @default(cuid())
+  name              String
+  email             String     @unique
+  emailVerified     Boolean    @default(false)
+  image             String?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  role              Role       @default(USER)
+  phone             String?
+  address           String?
+  city              String?
+  postalCode        String?
+  country           String?    @default("FR")
+  stripeCustomerId  String?
 
-  sessions      Session[]
-  accounts      Account[]
-  products      Product[]
-  orders        Order[]
+  sessions          Session[]
+  accounts          Account[]
+  products          Product[]
+  orders            Order[]
+  wishlist          Wishlist[] 
 }
-
 enum Role {
   ADMIN
   USER
@@ -111,6 +112,7 @@ model Product {
   createdBy       User           @relation(fields: [createdById], references: [id])
 
   orderItems      OrderItem[]
+  wishlists       Wishlist[]
 }
 
 enum Concentration {
@@ -193,4 +195,17 @@ enum PaymentStatus {
   FAILED
   REFUNDED
   PARTIALLY_REFUNDED
+}
+
+model Wishlist {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
 }
