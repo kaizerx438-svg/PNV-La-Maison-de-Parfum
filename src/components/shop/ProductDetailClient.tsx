@@ -220,7 +220,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             <button
               onClick={handleAddToCart}
               disabled={product.stock === 0}
-              className="flex-1 flex items-center justify-center gap-2 py-4 text-[11px] tracking-[0.3em] uppercase transition-all duration-300 hover:bg-[#6B1A2A] hover:text-[#F5EFE6] disabled:opacity-50"
+              className="flex-1 flex items-center justify-center gap-2 py-4 text-[11px] tracking-[0.3em] uppercase transition-all duration-300 hover:bg-[#6B1A2A] hover:text-[#F5EFE6] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               style={{
                 background: "#0D0D0D",
                 color: "#C9A96E",
