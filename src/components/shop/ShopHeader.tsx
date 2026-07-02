@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ShoppingBag, User, Menu, X } from "lucide-react";
+import { ShoppingBag, User, Menu, X, LogOut } from "lucide-react";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface ShopHeaderProps {
   cartCount?: number;
@@ -11,17 +14,27 @@ interface ShopHeaderProps {
 export default function ShopHeader({ cartCount = 0 }: ShopHeaderProps) {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { data: session } = authClient.useSession();
+  const router = useRouter();
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handler);
     return () => window.removeEventListener("scroll", handler);
   }, []);
-const navItems = [
-  { label: "Femme", href: "/catalogue?category=PARFUMS_FEMME" },
-  { label: "Homme", href: "/catalogue?category=PARFUMS_HOMME" },
-  { label: "Collection", href: "/catalogue" },
-];
+
+  const handleSignOut = async () => {
+    await authClient.signOut();
+    toast.success("À bientôt !");
+    router.push("/");
+    router.refresh();
+  };
+
+  const navItems = [
+    { label: "Femme", href: "/catalogue?category=PARFUMS_FEMME" },
+    { label: "Homme", href: "/catalogue?category=PARFUMS_HOMME" },
+    { label: "Collection", href: "/catalogue" },
+  ];
 
   return (
     <header
@@ -36,8 +49,7 @@ const navItems = [
       <div
         style={{
           height: "1px",
-          background:
-            "linear-gradient(90deg, transparent, #C9A96E, transparent)",
+          background: "linear-gradient(90deg, transparent, #C9A96E, transparent)",
         }}
       />
 
@@ -95,13 +107,35 @@ const navItems = [
 
           {/* Icons */}
           <div className="flex items-center gap-5">
-            <Link
-              href="/login"
-              className="transition-colors duration-300"
-              style={{ color: "#D4D0CC" }}
-            >
-              <User className="w-[18px] h-[18px]" />
-            </Link>
+            {session ? (
+              <>
+                <Link
+                  href="/account"
+                  className="transition-colors duration-300"
+                  style={{ color: "#C9A96E" }}
+                  title={session.user.name || session.user.email}
+                >
+                  <User className="w-[18px] h-[18px]" />
+                </Link>
+                <button
+                  onClick={handleSignOut}
+                  className="transition-colors duration-300 hover:opacity-70"
+                  style={{ color: "#D4D0CC" }}
+                  aria-label="Se déconnecter"
+                >
+                  <LogOut className="w-[18px] h-[18px]" />
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                className="transition-colors duration-300"
+                style={{ color: "#D4D0CC" }}
+              >
+                <User className="w-[18px] h-[18px]" />
+              </Link>
+            )}
+
             <Link
               href="/cart"
               className="relative transition-colors duration-300"
@@ -144,6 +178,15 @@ const navItems = [
               {item.label}
             </Link>
           ))}
+          {session && (
+            <button
+              onClick={handleSignOut}
+              className="block text-xs tracking-[0.25em] uppercase py-2 w-full text-left"
+              style={{ color: "#C9A96E" }}
+            >
+              Se déconnecter
+            </button>
+          )}
         </div>
       )}
 
@@ -151,8 +194,7 @@ const navItems = [
       <div
         style={{
           height: "1px",
-          background:
-            "linear-gradient(90deg, transparent, rgba(201,169,110,0.3), transparent)",
+          background: "linear-gradient(90deg, transparent, rgba(201,169,110,0.3), transparent)",
         }}
       />
     </header>

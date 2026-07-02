@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast} from 'sonner'
 
 export default function LoginForm() {
   const router = useRouter();
@@ -32,6 +33,7 @@ export default function LoginForm() {
       setError("Email ou mot de passe incorrect");
       return;
     }
+    toast.success("Bienvenue sur La Maison du Parfum");
     router.push("/");
   };
 
@@ -110,7 +112,8 @@ export default function LoginForm() {
       {/* Submit */}
       <button
         type="submit"
-        disabled={isSubmitting}
+        onClick={handleSubmit(onSubmit)}
+         disabled={isSubmitting}
         className="w-full py-3 text-[11px] tracking-[0.4em] uppercase transition-all duration-500 hover:bg-[#6B1A2A] hover:text-[#F5EFE6] disabled:opacity-50 mt-4"
         style={{
           background: "transparent",
