@@ -78,7 +78,7 @@ export default function BrandManifesto() {
           &ldquo;Porter un parfum Maison du Parfum,
           <br />
           c&apos;est choisir{" "}
-          <span style={{ color: "#C9A96E" }}>l&apos;identité</span> sur
+          <span style={{ color: "#C9A96E" }}>l&apos;identité</span> {""} sur
           l&apos;éphémère&rdquo;
         </h2>
 

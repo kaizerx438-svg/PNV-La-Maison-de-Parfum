@@ -1,11 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
+
+const SUPABASE = "https://zdxbevleazcwgzqkeggs.supabase.co/storage/v1/object/public/Produits";
 const categories = [
   {
     title: "Pour Elle",
-    sub: "Fragrances féminines",
-    image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=900&q=90",
+    sub: "Fragrances feminines",
+    image: `${SUPABASE}/sala.jpeg`,
     filter: "PARFUMS_FEMME",
     accent: "#D4A5A5",
     ratio: "3/4",
@@ -13,17 +15,9 @@ const categories = [
   {
     title: "Pour Lui",
     sub: "Fragrances masculines",
-    image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?w=900&q=90",
+    image: `${SUPABASE}/intense.jpeg`,
     filter: "PARFUMS_HOMME",
     accent: "#C9A96E",
-    ratio: "3/5",
-  },
-  {
-    title: "Mixte",
-    sub: "Fragrances universelles",
-    image: "https://images.unsplash.com/photo-1590156206657-aec5e5fa5f53?w=900&q=90",
-    filter: "PARFUMS_MIXTE",
-    accent: "#8B2035",
     ratio: "3/4",
   },
 ];
@@ -71,7 +65,7 @@ export default function CategoryBanner() {
       </div>
 
       {/* Grid */}
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-1">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-1">
         {categories.map((cat) => (
           <Link
             key={cat.filter}
