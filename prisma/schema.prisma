@@ -17,6 +17,11 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   role          Role      @default(USER)
+  phone         String?
+  address       String?
+  city          String?
+  postalCode    String?
+  country       String?   @default("FR")
 
   sessions      Session[]
   accounts      Account[]

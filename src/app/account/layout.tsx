@@ -5,6 +5,7 @@ import Link from "next/link";
 import ShopHeader from "@/components/shop/ShopHeader";
 import Footer from "@/components/shop/Footer";
 import { User, Package, Settings, LogOut } from "lucide-react";
+import { Toaster } from "@/components/ui/sonner";
 
 export default async function AccountLayout({
   children,
