@@ -96,7 +96,7 @@ const navItems = [
           {/* Icons */}
           <div className="flex items-center gap-5">
             <Link
-              href="/dashboard"
+              href="/login"
               className="transition-colors duration-300"
               style={{ color: "#D4D0CC" }}
             >
