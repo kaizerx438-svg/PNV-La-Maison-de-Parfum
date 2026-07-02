@@ -17,12 +17,11 @@ export default function ShopHeader({ cartCount = 0 }: ShopHeaderProps) {
     window.addEventListener("scroll", handler);
     return () => window.removeEventListener("scroll", handler);
   }, []);
-
-  const navItems = [
-    { label: "Femme", href: "/catalogue?category=PARFUMS_FEMME" },
-    { label: "Homme", href: "/catalogue?category=PARFUMS_HOMME" },
-    { label: "Collection", href: "/catalogue" },
-  ];
+const navItems = [
+  { label: "Femme", href: "/catalogue?category=PARFUMS_FEMME" },
+  { label: "Homme", href: "/catalogue?category=PARFUMS_HOMME" },
+  { label: "Collection", href: "/catalogue" },
+];
 
   return (
     <header
