@@ -22,7 +22,7 @@ export default async function AccountLayout({
   const navItems = [
     { label: "Mon compte", href: "/account", icon: User },
     { label: "Mes commandes", href: "/account/orders", icon: Package },
-    { label: "Ma wishlist", href: "/account/wishlist", icon: Heart },
+    { label: "Ma wishlists", href: "/account/wishlist", icon: Heart },
     { label: "Modes de paiements", href: "/account/payment", icon: CreditCard },
     { label: "Paramètres", href: "/account/settings", icon: Settings },
   ];
