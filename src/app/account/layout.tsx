@@ -4,7 +4,9 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import ShopHeader from "@/components/shop/ShopHeader";
 import Footer from "@/components/shop/Footer";
-import { User, Package, Settings, LogOut } from "lucide-react";
+import { User, Package, Settings, CreditCard, Heart } from "lucide-react";
+import { Toaster } from "@/components/ui/sonner";
+
 
 export default async function AccountLayout({
   children,
@@ -20,6 +22,8 @@ export default async function AccountLayout({
   const navItems = [
     { label: "Mon compte", href: "/account", icon: User },
     { label: "Mes commandes", href: "/account/orders", icon: Package },
+    { label: "Ma wishlists", href: "/account/wishlist", icon: Heart },
+    { label: "Modes de paiements", href: "/account/payment", icon: CreditCard },
     { label: "Paramètres", href: "/account/settings", icon: Settings },
   ];
 
