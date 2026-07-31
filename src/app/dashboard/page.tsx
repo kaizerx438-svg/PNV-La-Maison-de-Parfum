@@ -1,21 +1,45 @@
 import { AppSidebar } from "@/components/app-sidebar"
 import { ChartAreaInteractive } from "@/components/chart-area-interactive"
-import { DataTable } from "@/components/data-table"
 import { SectionCards } from "@/components/section-cards"
 import { SiteHeader } from "@/components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { auth } from "@/lib/auth"
+import { headers } from "next/headers"
+import { redirect } from "next/navigation"
+import { prisma } from "@/lib/prisma"
+import { DataTable, OrderRow } from "@/components/data-table"
 
-import data from "./data.json"
+export default async function Page() {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session) redirect("/login");
 
-export default function Page() {
+  const user = await prisma.user.findUnique({
+    where: { id: session.user.id },
+    select: { role: true },
+  });
+  if (user?.role !== "ADMIN") redirect("/");
+
+  const orders = await prisma.order.findMany({
+    orderBy: { createdAt: "desc" },
+    include: { items: true },
+  });
+
+  const orderRows: OrderRow[] = orders.map((order) => ({
+    id: order.id,
+    customerName: order.customerName,
+    customerEmail: order.customerEmail,
+    totalAmount: order.totalAmount,
+    status: order.status,
+    createdAt: order.createdAt.toISOString(),
+    itemCount: order.items.length,
+  }));
+
   return (
     <SidebarProvider
-      style={
-        {
-          "--sidebar-width": "calc(var(--spacing) * 72)",
-          "--header-height": "calc(var(--spacing) * 12)",
-        } as React.CSSProperties
-      }
+      style={{
+        "--sidebar-width": "calc(var(--spacing) * 72)",
+        "--header-height": "calc(var(--spacing) * 12)",
+      } as React.CSSProperties}
     >
       <AppSidebar variant="inset" />
       <SidebarInset>
@@ -27,7 +51,7 @@ export default function Page() {
               <div className="px-4 lg:px-6">
                 <ChartAreaInteractive />
               </div>
-              <DataTable data={data} />
+              <DataTable data={orderRows} />
             </div>
           </div>
         </div>
