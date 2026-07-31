@@ -23,6 +23,7 @@
     "@t3-oss/env-nextjs": "^0.13.11",
     "@tanstack/react-table": "^8.21.3",
     "@uploadthing/react": "^7.3.3",
+    "@vercel/analytics": "^2.0.1",
     "bcryptjs": "^3.0.3",
     "better-auth": "^1.6.23",
     "class-variance-authority": "^0.7.1",
