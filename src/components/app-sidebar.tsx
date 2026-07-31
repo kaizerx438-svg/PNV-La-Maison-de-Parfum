@@ -6,6 +6,7 @@ import {
   Package,
   ShoppingBag,
   Home,
+  Headphones,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -28,28 +29,13 @@ const data = {
     avatar: "",
   },
   navMain: [
-    {
-      title: "Vue generale",
-      url: "/dashboard",
-      icon: LayoutDashboard,
-    },
-    {
-      title: "Produits",
-      url: "/dashboard/products",
-      icon: Package,
-    },
-    {
-      title: "Commandes",
-      url: "/dashboard/orders",
-      icon: ShoppingBag,
-    },
+    { title: "Vue generale", url: "/dashboard?tab=overview", icon: LayoutDashboard },
+    { title: "Produits", url: "/dashboard?tab=products", icon: Package },
+    { title: "Commandes", url: "/dashboard?tab=orders", icon: ShoppingBag },
+    { title: "SAV", url: "/dashboard?tab=sav", icon: Headphones },
   ],
   navSecondary: [
-    {
-      title: "Retour au site",
-      url: "/",
-      icon: Home,
-    },
+    { title: "Retour au site", url: "/", icon: Home },
   ],
 }
 
