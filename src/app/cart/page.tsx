@@ -6,6 +6,8 @@ import Image from "next/image";
 import { ArrowLeft, ShoppingBag, Minus, Plus, Trash2 } from "lucide-react";
 import ShopHeader from "@/components/shop/ShopHeader";
 import Footer from "@/components/shop/Footer";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 interface CartItem {
@@ -19,6 +21,8 @@ interface CartItem {
 export default function CartPage() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [mounted, setMounted] = useState(false);
+  const { data: session } = authClient.useSession(); // ← ajoute
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -31,6 +35,35 @@ export default function CartPage() {
     localStorage.setItem("cart", JSON.stringify(updated));
     window.dispatchEvent(new Event("cart-updated"));
   };
+
+  const handleCheckout = async () => {
+  console.log("handleCheckout appelé", { session, cart });
+  if (!session) {
+    router.push("/login?redirect=/cart");
+    return;
+  }
+
+  try {
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: cart }),
+    });
+
+    const data = await res.json();
+
+    if (data.url) {
+      // Vider le panier et rediriger vers Stripe
+      localStorage.removeItem("cart");
+      window.dispatchEvent(new Event("cart-updated"));
+      window.location.href = data.url;
+    } else {
+      toast.error("Une erreur est survenue");
+    }
+  } catch {
+    toast.error("Une erreur est survenue");
+  }
+};
 
   const increaseQty = (id: string) => {
     const updated = cart.map((i) =>
@@ -56,6 +89,8 @@ export default function CartPage() {
   const cartCount = cart.reduce((s, i) => s + i.quantity, 0);
 
   if (!mounted) return null;
+
+  
 
   return (
     <div className="min-h-screen" style={{ background: "#F5EFE6" }}>
@@ -265,6 +300,7 @@ export default function CartPage() {
                 </div>
 
                 <button
+                 onClick={handleCheckout}
                  className="w-full py-4 text-[11px] tracking-[0.4em] uppercase transition-all duration-300 hover:bg-[#6B1A2A] hover:text-[#F5EFE6] cursor-pointer"
                   style={{
                     background: "#C9A96E",
