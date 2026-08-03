@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams  } from "next/navigation";
 import { useState } from "react";
 import { toast} from 'sonner'
 
@@ -23,19 +23,32 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") || "/";
   const onSubmit = async (data: LoginFormData) => {
-    setError("");
-    const { error } = await authClient.signIn.email({
-      email: data.email,
-      password: data.password,
-    });
-    if (error) {
-      setError("Email ou mot de passe incorrect");
-      return;
-    }
-    toast.success("Bienvenue sur La Maison du Parfum");
-    router.push("/");
-  };
+  setError("");
+  const { error } = await authClient.signIn.email({
+    email: data.email,
+    password: data.password,
+  });
+  if (error) {
+    setError("Email ou mot de passe incorrect");
+    return;
+  }
+
+  // Vérifier le rôle depuis l'API
+  const res = await fetch("/api/user/me");
+  const userData = await res.json();
+
+  toast.success("Bienvenue sur La Maison du Parfum");
+
+  if (userData.user?.role === "ADMIN") {
+    router.push("/dashboard");
+  } else {
+    router.push(redirect);
+  }
+  router.refresh();
+};
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">

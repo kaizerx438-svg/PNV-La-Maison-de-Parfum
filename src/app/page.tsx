@@ -4,6 +4,7 @@ import CategoryBanner from "@/components/shop/CategoryBanner";
 import FeaturedProducts from "@/components/shop/FeaturedProducts";
 import BrandManifesto from "@/components/shop/BrandManifesto";
 import Footer from "@/components/shop/Footer";
+import NotreHistoirePage from "./notre-histoire/page";
 
 export default async function Home() {
   const products = await getProducts();

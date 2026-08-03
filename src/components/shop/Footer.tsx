@@ -7,10 +7,10 @@ const collections = [
 ];
 
 const maison = [
-  { label: "Notre histoire", href: "#" },
-  { label: "Livraison & Retours", href: "#" },
-  { label: "Mentions légales", href: "#" },
-  { label: "CGV", href: "#" },
+  { label: "Notre histoire", href: "/notre-histoire" },
+  { label: "Livraison & Retours", href: "/livraison" },
+  { label: "Mentions légales", href: "/mentions-legales" },
+  { label: "CGV", href: "" },
 ];
 
 export default function Footer() {

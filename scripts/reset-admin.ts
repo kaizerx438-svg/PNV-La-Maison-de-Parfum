@@ -9,7 +9,7 @@ async function main() {
   // Trouver le compte admin dans la table Account de Better Auth
   const account = await prisma.account.findFirst({
     where: {
-      user: { email: 'admin@pnv.fr' }
+      user: { email: 'contact.nvparfums@gmail.com' }
     }
   });
 
@@ -22,7 +22,7 @@ async function main() {
   } else {
     console.log('Compte admin non trouvé - creation...');
     const user = await prisma.user.findUnique({
-      where: { email: 'admin@pnv.fr' }
+      where: { email: 'contact.nvparfums@gmail.com' }
     });
     if (user) {
       await prisma.account.create({

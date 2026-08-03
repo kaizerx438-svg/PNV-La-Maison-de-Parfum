@@ -57,12 +57,12 @@ const concentrationLabels: Record<string, string> = {
 };
 
 export default function ProductsManager({
-  products: initialProducts,
-  categories,
+  products: initialProducts = [],
+  categories = [],
 }: {
   products: ProductWithCategory[];
   categories: Category[];
-}) {
+}){
   const [products, setProducts] = React.useState(initialProducts);
   const [showForm, setShowForm] = React.useState(false);
   const [editingProduct, setEditingProduct] = React.useState<ProductWithCategory | null>(null);
