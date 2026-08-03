@@ -65,7 +65,14 @@ export default async function Page() {
         "--header-height": "calc(var(--spacing) * 12)",
       } as React.CSSProperties}
     >
-      <AppSidebar variant="inset" />
+   <AppSidebar 
+    variant="inset" 
+    user={{
+      name: session.user.name || "Admin",
+      email: session.user.email || "",
+      avatar: session.user.image || "",
+    }}
+  />
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-1 flex-col">

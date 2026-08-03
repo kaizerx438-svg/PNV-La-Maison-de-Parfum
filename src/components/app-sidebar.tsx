@@ -1,14 +1,7 @@
 "use client"
 
 import * as React from "react"
-import {
-  LayoutDashboard,
-  Package,
-  ShoppingBag,
-  Home,
-  Headphones,
-} from "lucide-react"
-
+import { LayoutDashboard, Package, ShoppingBag, Home, Headphones } from "lucide-react"
 import { NavMain } from "@/components/nav-main"
 import { NavSecondary } from "@/components/nav-secondary"
 import { NavUser } from "@/components/nav-user"
@@ -22,33 +15,34 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
-const data = {
-  user: {
-    name: "Admin PNV",
-    email: "admin2@pnv.fr",
-    avatar: "",
-  },
-  navMain: [
-    { title: "Vue generale", url: "/dashboard?tab=overview", icon: LayoutDashboard },
-    { title: "Produits", url: "/dashboard?tab=products", icon: Package },
-    { title: "Commandes", url: "/dashboard?tab=orders", icon: ShoppingBag },
-    { title: "SAV", url: "/dashboard?tab=sav", icon: Headphones },
-  ],
-  navSecondary: [
-    { title: "Retour au site", url: "/", icon: Home },
-  ],
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  user?: {
+    name: string;
+    email: string;
+    avatar: string;
+  };
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ user, ...props }: AppSidebarProps) {
+  const data = {
+    user: user || { name: "Admin", email: "", avatar: "" },
+    navMain: [
+      { title: "Vue generale", url: "/dashboard?tab=overview", icon: LayoutDashboard },
+      { title: "Produits", url: "/dashboard?tab=products", icon: Package },
+      { title: "Commandes", url: "/dashboard?tab=orders", icon: ShoppingBag },
+      { title: "SAV", url: "/dashboard?tab=sav", icon: Headphones },
+    ],
+    navSecondary: [
+      { title: "Retour au site", url: "/", icon: Home },
+    ],
+  };
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
-            >
+            <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:!p-1.5">
               <a href="/dashboard">
                 <div className="flex flex-col">
                   <span className="text-[10px] tracking-[0.4em] uppercase" style={{ color: "#C9A96E" }}>
