@@ -59,32 +59,20 @@ export default function PreorderClient({ products }: { products: ProductWithCate
 
   const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
 
-  const handleCheckout = async () => {
-    if (!session) {
-      router.push("/login?redirect=/precommande");
-      return;
-    }
-    if (cart.length === 0) {
-      toast.error("Ajoutez au moins un produit");
-      return;
-    }
+ const handleCheckout = async () => {
+  if (!session) {
+    router.push("/login?redirect=/precommande");
+    return;
+  }
+  if (cart.length === 0) {
+    toast.error("Ajoutez au moins un produit");
+    return;
+  }
+  // Sauvegarder le panier dans sessionStorage
+  sessionStorage.setItem("preorder_cart", JSON.stringify(cart));
+  router.push("/precommande/checkout");
+};
 
-    setLoading(true);
-    try {
-      const res = await fetch("/api/preorder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items: cart }),
-      });
-      const data = await res.json();
-      if (data.url) window.location.href = data.url;
-      else toast.error("Une erreur est survenue");
-    } catch {
-      toast.error("Une erreur est survenue");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -176,7 +164,7 @@ export default function PreorderClient({ products }: { products: ProductWithCate
         })}
       </div>
 
-      {/* Résumé */}
+      {}
       <div className="lg:col-span-1">
         <div
           className="p-6 sticky top-24"
