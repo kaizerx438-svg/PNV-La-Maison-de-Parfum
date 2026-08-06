@@ -114,7 +114,7 @@ const columns: ColumnDef<OrderRow>[] = [
   },
 ]
 
-export function DataTable({ data }: { data: OrderRow[] }) {
+export function DataTable({ data = [] }: { data: OrderRow[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})

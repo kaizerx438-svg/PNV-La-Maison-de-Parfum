@@ -25,6 +25,7 @@ export async function GET() {
         city: true,
         postalCode: true,
         country: true,
+        role: true,
       },
     });
 

@@ -3,14 +3,12 @@ import { ChartAreaInteractive } from "@/components/chart-area-interactive"
 import { SectionCards } from "@/components/section-cards"
 import { SiteHeader } from "@/components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { auth } from "@/lib/auth"
 import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { prisma } from "@/lib/prisma"
-import { DataTable, OrderRow } from "@/components/data-table"
-import ProductsManager from "@/components/dashboard/ProductManager"
-import RecentOrdersTable from "@/components/dashboard/RecentOrdersTable"
+import { OrderRow } from "@/components/data-table"
+import DashboardTabs from "@/components/dashboard/DashboardTabs"
 
 export default async function Page() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -22,7 +20,7 @@ export default async function Page() {
   });
   if (user?.role !== "ADMIN") redirect("/");
 
-  const [orders, products, categories, recentOrders] = await Promise.all([
+  const [orders, products, categories, tickets] = await Promise.all([
     prisma.order.findMany({
       orderBy: { createdAt: "desc" },
       include: { items: true },
@@ -32,10 +30,12 @@ export default async function Page() {
       orderBy: { createdAt: "desc" },
     }),
     prisma.category.findMany(),
-    prisma.order.findMany({
-      take: 5,
+    prisma.ticket.findMany({
+      include: {
+        user: { select: { name: true, email: true } },
+        order: { select: { id: true, totalAmount: true } },
+      },
       orderBy: { createdAt: "desc" },
-      include: { items: true },
     }),
   ]);
 
@@ -49,6 +49,15 @@ export default async function Page() {
     itemCount: order.items.length,
   }));
 
+  const recentOrderRows = orderRows.slice(0, 5);
+
+  const overviewContent = (
+    <>
+      <SectionCards />
+      <ChartAreaInteractive />
+    </>
+  );
+
   return (
     <SidebarProvider
       style={{
@@ -56,35 +65,26 @@ export default async function Page() {
         "--header-height": "calc(var(--spacing) * 12)",
       } as React.CSSProperties}
     >
-      <AppSidebar variant="inset" />
+   <AppSidebar 
+    variant="inset" 
+    user={{
+      name: session.user.name || "Admin",
+      email: session.user.email || "",
+      avatar: session.user.image || "",
+    }}
+  />
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
-            <Tabs defaultValue="overview" className="px-4 lg:px-6 pt-4">
-              <TabsList>
-                <TabsTrigger value="overview">Vue generale</TabsTrigger>
-                <TabsTrigger value="products">Produits</TabsTrigger>
-                <TabsTrigger value="orders">Commandes</TabsTrigger>
-              </TabsList>
-
-              {/* Vue generale */}
-              <TabsContent value="overview" className="space-y-4 mt-4">
-                <SectionCards />
-                <ChartAreaInteractive />
-                <DataTable data={orderRows.slice(0, 5)} />
-              </TabsContent>
-
-              {/* Produits */}
-              <TabsContent value="products" className="mt-4">
-                <ProductsManager products={products} categories={categories} />
-              </TabsContent>
-
-              {/* Commandes */}
-              <TabsContent value="orders" className="mt-4">
-                <DataTable data={orderRows} />
-              </TabsContent>
-            </Tabs>
+            <DashboardTabs
+              orderRows={orderRows}
+              recentOrderRows={recentOrderRows}
+              products={products}
+              categories={categories}
+              tickets={tickets}
+              overviewContent={overviewContent}
+            />
           </div>
         </div>
       </SidebarInset>
