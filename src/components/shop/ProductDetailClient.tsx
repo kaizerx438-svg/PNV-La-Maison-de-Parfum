@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { ShoppingBag, Heart, Minus, Plus, ArrowLeft } from "lucide-react";
@@ -110,10 +110,10 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             {discountedPrice ? (
               <>
                 <span className="text-2xl font-medium" style={{ color: "#6B1A2A" }}>
-                  {discountedPrice.toFixed(2)} €
+                  {discountedPrice.toFixed(2)} FCFA
                 </span>
                 <span className="text-lg line-through" style={{ color: "#B0A898" }}>
-                  {product.price.toFixed(2)} €
+                  {product.price.toFixed(2)} FCFA
                 </span>
               </>
             ) : (
@@ -121,7 +121,7 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
                 className="text-2xl font-light"
                 style={{ color: "#0D0D0D", fontFamily: "Georgia, serif" }}
               >
-                {product.price.toFixed(2)} €
+                {product.price.toFixed(2)} FCFA
               </span>
             )}
           </div>

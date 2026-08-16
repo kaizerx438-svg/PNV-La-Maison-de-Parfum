@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
@@ -111,7 +111,7 @@ export default async function OrdersPage() {
                       className="text-sm font-light mt-2"
                       style={{ color: "#0D0D0D", fontFamily: "Georgia, serif" }}
                     >
-                      {order.totalAmount.toFixed(2)} €
+                      {order.totalAmount.toFixed(2)} FCFA
                     </p>
                   </div>
                 </div>
@@ -147,7 +147,7 @@ export default async function OrdersPage() {
                         className="text-xs"
                         style={{ color: "#0D0D0D", fontFamily: "Georgia, serif" }}
                       >
-                        {(item.priceAtOrder * item.quantity).toFixed(2)} €
+                        {(item.priceAtOrder * item.quantity).toFixed(2)} FCFA
                       </p>
                     </div>
                   ))}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -298,7 +298,7 @@ export default function CheckoutClient({ user }: { user: UserData | null }) {
                   </p>
                 </div>
                 <span className="text-xs" style={{ color: "#F5EFE6" }}>
-                  {(item.price * item.quantity).toFixed(2)} €
+                  {(item.price * item.quantity).toFixed(2)} FCFA
                 </span>
               </div>
             ))}
@@ -327,7 +327,7 @@ export default function CheckoutClient({ user }: { user: UserData | null }) {
                 className="text-sm font-light"
                 style={{ color: "#F5EFE6", fontFamily: "Georgia, serif" }}
               >
-                {total.toFixed(2)} €
+                {total.toFixed(2)} FCFA
               </span>
             </div>
           </div>

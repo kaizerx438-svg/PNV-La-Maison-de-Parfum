@@ -1,4 +1,4 @@
-import { ShoppingBag, TrendingUp, Package, Users } from "lucide-react";
+﻿import { ShoppingBag, TrendingUp, Package, Users } from "lucide-react";
 
 interface Stats {
   totalOrders: number;
@@ -11,7 +11,7 @@ export default function DashboardStats({ stats }: { stats: Stats }) {
   const cards = [
     {
       label: "Chiffre d'affaires",
-      value: `${stats.totalRevenue.toFixed(2)} €`,
+      value: `${stats.totalRevenue.toFixed(2)} FCFA`,
       icon: TrendingUp,
       color: "#C9A96E",
     },

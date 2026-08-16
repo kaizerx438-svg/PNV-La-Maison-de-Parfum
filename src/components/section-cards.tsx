@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma"
+﻿import { prisma } from "@/lib/prisma"
 import { Badge } from "@/components/ui/badge"
 import {
   Card,
@@ -21,7 +21,7 @@ export async function SectionCards() {
   const cards = [
     {
       label: "Chiffre d'affaires",
-      value: `${(totalRevenue._sum.totalAmount || 0).toFixed(2)} €`,
+      value: `${(totalRevenue._sum.totalAmount || 0).toFixed(2)} FCFA`,
       icon: TrendingUpIcon,
       footer: "Total des ventes",
     },

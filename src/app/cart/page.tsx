@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -228,7 +228,7 @@ export default function CartPage() {
                           className="text-sm font-light"
                           style={{ color: "#0D0D0D", fontFamily: "Georgia, serif" }}
                         >
-                          {(item.price * item.quantity).toFixed(2)} €
+                          {(item.price * item.quantity).toFixed(2)} FCFA
                         </span>
                         <button
                           onClick={() => removeItem(item.product_id)}
@@ -266,7 +266,7 @@ export default function CartPage() {
                       Sous-total ({cartCount} article{cartCount > 1 ? "s" : ""})
                     </span>
                     <span className="text-xs" style={{ color: "#F5EFE6" }}>
-                      {total.toFixed(2)} €
+                      {total.toFixed(2)} FCFA
                     </span>
                   </div>
                   <div className="flex justify-between">
@@ -294,7 +294,7 @@ export default function CartPage() {
                       className="text-sm font-light"
                       style={{ color: "#F5EFE6", fontFamily: "Georgia, serif" }}
                     >
-                      {total.toFixed(2)} €
+                      {total.toFixed(2)} FCFA
                     </span>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Heart, ShoppingBag } from "lucide-react";
@@ -159,7 +159,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             </span>
           )}
 
-          {/* Badge stock faible */}
+          {}
           {isLowStock && (
             <span
               className="absolute bottom-3 left-3 text-[9px] tracking-[0.2em] uppercase px-2 py-1"
@@ -266,10 +266,10 @@ export default function ProductCard({ product }: ProductCardProps) {
           ) : discountedPrice ? (
             <>
               <span className="text-sm font-medium" style={{ color: "#6B1A2A" }}>
-                {discountedPrice.toFixed(2)} €
+                {discountedPrice.toFixed(2)} FCFA
               </span>
               <span className="text-xs line-through" style={{ color: "#B0A898" }}>
-                {product.price.toFixed(2)} €
+                {product.price.toFixed(2)} FCFA
               </span>
             </>
           ) : (
@@ -277,7 +277,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               className="text-sm"
               style={{ color: "#0D0D0D", fontFamily: "Georgia, serif" }}
             >
-              {product.price.toFixed(2)} €
+              {product.price.toFixed(2)} FCFA
             </span>
           )}
         </div>
