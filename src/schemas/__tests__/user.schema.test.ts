@@ -38,13 +38,13 @@ describe("registerSchema", () => {
     expect(result.success).toBe(false);
   });
 
-  it("accepte des donnees valides", () => {
-    const result = registerSchema.safeParse({
-      name: "Franck",
-      email: "test@example.com",
-      password: "motdepasse123",
-      confirmPassword: "motdepasse123",
-    });
-    expect(result.success).toBe(true);
+ it("accepte des donnees valides", () => {
+  const result = registerSchema.safeParse({
+    name: "Jean Dupont",
+    email: "test@example.com",
+    password: "Motdepasse123!",
+    confirmPassword: "Motdepasse123!",
   });
+  expect(result.success).toBe(true);
+});
 });
