@@ -1,6 +1,6 @@
+import Image from "next/image";
 import ShopHeader from "@/components/shop/ShopHeader";
 import Footer from "@/components/shop/Footer";
-import Image from "next/image";
 import { Globe, MapPin, RefreshCw } from "lucide-react";
 
 export default function NotreHistoirePage() {
@@ -8,63 +8,71 @@ export default function NotreHistoirePage() {
     <div className="min-h-screen" style={{ background: "#0D0D0D" }}>
       <ShopHeader />
 
-      {/* Hero */}
+      {/* Hero avec photo à droite */}
       <div
-        className="relative py-24 flex flex-col items-center justify-center text-center"
+        className="relative py-24"
         style={{ background: "linear-gradient(180deg, #1a0a0a 0%, #0D0D0D 100%)" }}
       >
-        <p className="text-[10px] tracking-[0.6em] uppercase mb-4" style={{ color: "#C9A96E" }}>
-          Parfums by N.V
-        </p>
-        <h1
-          className="text-5xl md:text-7xl font-light mb-2"
-          style={{ color: "#F5EFE6", fontFamily: "Georgia, Times New Roman, serif" }}
-        >
-          Behind the Brand
-        </h1>
-        <div
-          className="mt-6 mb-8"
-          style={{ width: "60px", height: "1px", background: "linear-gradient(90deg, transparent, #C9A96E, transparent)" }}
-        />
-        <p
-          className="text-2xl tracking-[0.3em] uppercase font-light"
-          style={{ color: "#C9A96E", fontFamily: "Georgia, Times New Roman, serif" }}
-        >
-          PNV
-        </p>
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+
+            {/* Texte à gauche */}
+            <div className="flex-1">
+              <p
+                className="text-[10px] tracking-[0.6em] uppercase mb-4"
+                style={{ color: "#C9A96E", fontFamily: "Helvetica Neue, Arial, sans-serif" }}
+              >
+                Parfums by N.V
+              </p>
+              <h1
+                className="text-5xl md:text-7xl font-light mb-6"
+                style={{ color: "#F5EFE6", fontFamily: "Georgia, Times New Roman, serif", lineHeight: "1.1" }}
+              >
+                Behind<br />the Brand
+              </h1>
+              <div
+                className="mb-8"
+                style={{ width: "60px", height: "1px", background: "linear-gradient(90deg, #C9A96E, transparent)" }}
+              />
+              <p
+                className="text-2xl tracking-[0.3em] uppercase font-light mb-6"
+                style={{ color: "#C9A96E", fontFamily: "Georgia, Times New Roman, serif" }}
+              >
+                PNV
+              </p>
+              <h2
+                className="text-xl font-light mb-2"
+                style={{ color: "#F5EFE6", fontFamily: "Georgia, Times New Roman, serif" }}
+              >
+                Naomie Vanina Moussonda Ndombi
+              </h2>
+              <p className="text-sm italic mb-1" style={{ color: "#C9A96E" }}>
+                Fondatrice de PNV
+              </p>
+              <p className="text-xs tracking-[0.2em]" style={{ color: "rgba(245,239,230,0.4)" }}>
+                21 ans · Libreville, Gabon
+              </p>
+            </div>
+
+            {/* Photo à droite */}
+            <div
+              className="flex-shrink-0 w-72 h-96 relative overflow-hidden"
+              style={{ border: "1px solid rgba(201,169,110,0.2)" }}
+            >
+              <Image
+                src="https://zdxbevleazcwgzqkeggs.supabase.co/storage/v1/object/public/Produits/fondatrice.jpeg"
+                alt="Naomie Vanina Moussonda Ndombi — Fondatrice de PNV"
+                fill
+                sizes="288px"
+                className="object-cover object-top"
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
+      {/* Histoire */}
       <div className="max-w-5xl mx-auto px-6 py-16">
-
-        {/* Fondatrice */}
-        <div className="flex flex-col items-center mb-16">
-          <div
-            className="w-64 h-80 relative overflow-hidden mb-8"
-            style={{ border: "1px solid rgba(201,169,110,0.2)" }}
-          >
-            <Image
-              src="https://zdxbevleazcwgzqkeggs.supabase.co/storage/v1/object/public/Produits/fondatrice.jpeg"
-              alt="Naomie Vanina Moussonda Ndombi — Fondatrice de PNV"
-              fill
-              sizes="256px"
-              className="object-cover object-top"
-            />
-          </div>
-          <h2
-            className="text-2xl font-light mb-2"
-            style={{ color: "#F5EFE6", fontFamily: "Georgia, Times New Roman, serif" }}
-          >
-            Naomie Vanina Moussonda Ndombi
-          </h2>
-          <p className="text-sm italic mb-1" style={{ color: "#C9A96E" }}>
-            Fondatrice de PNV
-          </p>
-          <p className="text-xs tracking-[0.2em]" style={{ color: "rgba(245,239,230,0.4)" }}>
-            21 ans · Libreville, Gabon
-          </p>
-        </div>
-
-        {/* Histoire */}
         <div className="max-w-2xl mx-auto space-y-8">
           <h3
             className="text-xs tracking-[0.5em] uppercase text-center mb-12"
@@ -113,7 +121,7 @@ export default function NotreHistoirePage() {
             className="text-2xl md:text-3xl tracking-[0.2em] uppercase font-light mb-10"
             style={{ color: "#C9A96E", fontFamily: "Georgia, Times New Roman, serif" }}
           >
-            C&apos;est la nôtre.
+            C&apos;est la n&ocirc;tre.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
