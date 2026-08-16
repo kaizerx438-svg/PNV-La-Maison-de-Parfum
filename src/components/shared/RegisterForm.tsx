@@ -9,10 +9,15 @@ import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Eye, EyeOff } from "lucide-react";
+import zxcvbn from "zxcvbn";
 
 export default function RegisterForm() {
   const router = useRouter();
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [passwordValue, setPasswordValue] = useState("");
 
   const {
     register,
@@ -41,11 +46,24 @@ export default function RegisterForm() {
     if (e.key === "Enter") e.preventDefault();
   };
 
+  // Jauge de force
+  const strength = passwordValue.length > 0 ? zxcvbn(passwordValue) : null;
+  const strengthScore = strength?.score ?? 0;
+
+  const strengthConfig = [
+    { label: "Tres faible", color: "#A32D2D", width: "20%" },
+    { label: "Faible", color: "#C9622A", width: "40%" },
+    { label: "Moyen", color: "#C9A96E", width: "60%" },
+    { label: "Fort", color: "#5B8C5A", width: "80%" },
+    { label: "Tres fort", color: "#2E6B2E", width: "100%" },
+  ];
+
+  const currentStrength = passwordValue.length > 0 ? strengthConfig[strengthScore] : null;
+
   return (
-    <form
-      className="space-y-5"
-      onSubmit={(e) => e.preventDefault()}
-    >
+    <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+
+      {/* Nom */}
       <div className="space-y-2">
         <Label
           htmlFor="name"
@@ -68,6 +86,7 @@ export default function RegisterForm() {
         )}
       </div>
 
+      {/* Email */}
       <div className="space-y-2">
         <Label
           htmlFor="email"
@@ -90,6 +109,7 @@ export default function RegisterForm() {
         )}
       </div>
 
+      {/* Mot de passe */}
       <div className="space-y-2">
         <Label
           htmlFor="password"
@@ -98,20 +118,58 @@ export default function RegisterForm() {
         >
           Mot de passe
         </Label>
-        <Input
-          id="password"
-          type="password"
-          placeholder="••••••••"
-          {...register("password")}
-          onKeyDown={preventEnter}
-          className="border-0 border-b rounded-none bg-transparent focus-visible:ring-0"
-          style={{ borderBottom: "1px solid rgba(201,169,110,0.3)", color: "#F5EFE6" }}
-        />
+        <div className="relative">
+          <Input
+            id="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="••••••••••••"
+            {...register("password", {
+              onChange: (e) => setPasswordValue(e.target.value),
+            })}
+            onKeyDown={preventEnter}
+            className="border-0 border-b rounded-none bg-transparent focus-visible:ring-0 pr-10"
+            style={{ borderBottom: "1px solid rgba(201,169,110,0.3)", color: "#F5EFE6" }}
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-0 top-1/2 -translate-y-1/2 p-1 cursor-pointer"
+            style={{ color: "rgba(245,239,230,0.4)" }}
+          >
+            {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+          </button>
+        </div>
+
+        {/* Jauge de force */}
+        {passwordValue.length > 0 && (
+          <div className="space-y-1 mt-2">
+            <div
+              className="h-1 rounded-full overflow-hidden"
+              style={{ background: "rgba(245,239,230,0.1)" }}
+            >
+              <div
+                className="h-full transition-all duration-300"
+                style={{
+                  width: currentStrength?.width,
+                  background: currentStrength?.color,
+                }}
+              />
+            </div>
+            <p className="text-[10px]" style={{ color: currentStrength?.color }}>
+              {currentStrength?.label}
+            </p>
+          </div>
+        )}
+
+        <p className="text-[10px]" style={{ color: "rgba(245,239,230,0.3)" }}>
+          Minimum 12 caracteres
+        </p>
         {errors.password && (
           <p className="text-[10px]" style={{ color: "#C9A96E" }}>{errors.password.message}</p>
         )}
       </div>
 
+      {/* Confirmation */}
       <div className="space-y-2">
         <Label
           htmlFor="confirmPassword"
@@ -120,15 +178,25 @@ export default function RegisterForm() {
         >
           Confirmer le mot de passe
         </Label>
-        <Input
-          id="confirmPassword"
-          type="password"
-          placeholder="••••••••"
-          {...register("confirmPassword")}
-          onKeyDown={preventEnter}
-          className="border-0 border-b rounded-none bg-transparent focus-visible:ring-0"
-          style={{ borderBottom: "1px solid rgba(201,169,110,0.3)", color: "#F5EFE6" }}
-        />
+        <div className="relative">
+          <Input
+            id="confirmPassword"
+            type={showConfirm ? "text" : "password"}
+            placeholder="••••••••••••"
+            {...register("confirmPassword")}
+            onKeyDown={preventEnter}
+            className="border-0 border-b rounded-none bg-transparent focus-visible:ring-0 pr-10"
+            style={{ borderBottom: "1px solid rgba(201,169,110,0.3)", color: "#F5EFE6" }}
+          />
+          <button
+            type="button"
+            onClick={() => setShowConfirm(!showConfirm)}
+            className="absolute right-0 top-1/2 -translate-y-1/2 p-1 cursor-pointer"
+            style={{ color: "rgba(245,239,230,0.4)" }}
+          >
+            {showConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+          </button>
+        </div>
         {errors.confirmPassword && (
           <p className="text-[10px]" style={{ color: "#C9A96E" }}>{errors.confirmPassword.message}</p>
         )}
@@ -142,7 +210,7 @@ export default function RegisterForm() {
         type="button"
         onClick={handleSubmit(onSubmit)}
         disabled={isSubmitting}
-        className="w-full py-3 text-[11px] tracking-[0.4em] uppercase transition-all duration-500 hover:bg-[#6B1A2A] hover:text-[#F5EFE6] disabled:opacity-50 mt-4"
+        className="w-full py-3 text-[11px] tracking-[0.4em] uppercase transition-all duration-500 hover:bg-[#6B1A2A] hover:text-[#F5EFE6] disabled:opacity-50 mt-4 cursor-pointer"
         style={{
           background: "transparent",
           border: "1px solid rgba(201,169,110,0.6)",
