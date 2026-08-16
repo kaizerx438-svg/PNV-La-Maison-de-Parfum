@@ -9,6 +9,8 @@ const ALWAYS_ACCESSIBLE = [
   "/precommande",
   "/login",
   "/register",
+  "/forgot-password",
+  "/reset-password",
   "/api",
   "/dashboard",
 ];
