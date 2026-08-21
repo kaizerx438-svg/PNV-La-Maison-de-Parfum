@@ -16,7 +16,7 @@ export default function HeroSection() {
           style={{ opacity: 0.35 }}
           priority
         />
-        {/* Overlay gradients */}
+        {}
         <div
           className="absolute inset-0"
           style={{
@@ -34,7 +34,7 @@ export default function HeroSection() {
         />
       </div>
 
-      {/* Decorative vertical lines */}
+      {}
       <div
         className="absolute left-8 top-0 bottom-0 w-px hidden lg:block"
         style={{

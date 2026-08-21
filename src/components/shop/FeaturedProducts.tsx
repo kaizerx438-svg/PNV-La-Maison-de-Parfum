@@ -63,11 +63,14 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {}
+        <div className="flex flex-wrap justify-center gap-6">
           {display.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <div key={product.id} className="w-full sm:w-[calc(50%-12px)] md:w-[calc(25%-18px)] max-w-xs">
+              <ProductCard product={product}/>
+            </div>
           ))}
+
         </div>
       </div>
     </section>

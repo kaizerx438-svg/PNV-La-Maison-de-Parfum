@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import * as React from "react"
 import {
@@ -90,7 +90,7 @@ const columns: ColumnDef<OrderRow>[] = [
     header: "Total",
     cell: ({ row }) => (
       <span className="text-sm font-medium">
-        {row.getValue<number>("totalAmount").toFixed(2)} €
+        {row.getValue<number>("totalAmount").toFixed(2)} FCFA
       </span>
     ),
   },

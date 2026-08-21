@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
@@ -126,7 +126,7 @@ export default async function AccountPage() {
                 </div>
                 <div className="text-right">
                   <p className="text-sm" style={{ color: "#0D0D0D", fontFamily: "Georgia, serif" }}>
-                    {order.totalAmount.toFixed(2)} €
+                    {order.totalAmount.toFixed(2)} FCFA
                   </p>
                   <span
                     className="text-[9px] tracking-[0.2em] uppercase px-2 py-1"

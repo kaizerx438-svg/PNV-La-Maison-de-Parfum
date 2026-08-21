@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+﻿import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
@@ -86,7 +86,7 @@ export default async function WishlistPage() {
                     </h3>
                   </Link>
                   <p className="text-sm mt-1" style={{ color: "#0D0D0D", fontFamily: "Georgia, serif" }}>
-                    {product.price.toFixed(2)} €
+                    {product.price.toFixed(2)} FCFA
                   </p>
                 </div>
 

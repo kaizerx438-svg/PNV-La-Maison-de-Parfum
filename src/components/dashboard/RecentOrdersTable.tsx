@@ -1,4 +1,4 @@
-import { Order, OrderItem } from "@prisma/client";
+﻿import { Order, OrderItem } from "@prisma/client";
 
 type OrderWithItems = Order & { items: OrderItem[] };
 
@@ -56,7 +56,7 @@ export default function RecentOrdersTable({ orders }: { orders: OrderWithItems[]
               </div>
               <div className="text-right">
                 <p className="text-sm" style={{ color: "#F5EFE6", fontFamily: "Georgia, serif" }}>
-                  {order.totalAmount.toFixed(2)} €
+                  {order.totalAmount.toFixed(2)} FCFA
                 </p>
                 <span
                   className="text-[9px] tracking-[0.2em] uppercase px-2 py-1 mt-1 inline-block"

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState } from "react"
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
@@ -52,11 +52,11 @@ export function ChartAreaInteractive() {
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.1)" />
               <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} tickFormatter={(v) => `${v}€`} />
+              <YAxis tick={{ fontSize: 12 }} tickFormatter={(v) => `${v}FCFA`} />
               <Tooltip
                formatter={(value) => {
                 const num = typeof value === "number" ? value : Number(value);
-                return [`${num.toFixed(2)}€`, "Revenus"];
+                return [`${num.toFixed(2)}FCFA`, "Revenus"];
               }}
                 labelStyle={{ fontFamily: "Georgia, serif" }}
               />

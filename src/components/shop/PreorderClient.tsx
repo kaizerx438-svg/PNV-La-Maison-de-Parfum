@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -119,7 +119,7 @@ export default function PreorderClient({ products }: { products: ProductWithCate
                     {product.name}
                   </h3>
                   <p className="text-sm font-medium" style={{ color: "#0D0D0D" }}>
-                    {product.price.toFixed(2)} €
+                    {product.price.toFixed(2)} FCFA
                   </p>
                 </div>
 
@@ -189,7 +189,7 @@ export default function PreorderClient({ products }: { products: ProductWithCate
                     {item.product_name} x{item.quantity}
                   </span>
                   <span className="text-xs" style={{ color: "#F5EFE6" }}>
-                    {(item.price * item.quantity).toFixed(2)} €
+                    {(item.price * item.quantity).toFixed(2)} FCFA
                   </span>
                 </div>
               ))}
@@ -199,7 +199,7 @@ export default function PreorderClient({ products }: { products: ProductWithCate
               >
                 <span className="text-sm font-light" style={{ color: "#F5EFE6" }}>Total</span>
                 <span className="text-sm font-light" style={{ color: "#F5EFE6" }}>
-                  {total.toFixed(2)} €
+                  {total.toFixed(2)} FCFA
                 </span>
               </div>
             </div>

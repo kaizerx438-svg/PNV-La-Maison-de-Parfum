@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import * as React from "react";
 import {
@@ -221,7 +221,7 @@ export default function ProductsManager({
       header: "Prix",
       cell: ({ row }) => (
         <div>
-          <span className="text-sm font-medium">{row.original.price.toFixed(2)} €</span>
+          <span className="text-sm font-medium">{row.original.price.toFixed(2)} FCFA</span>
           {row.original.discountPercent > 0 && (
             <span className="ml-1 text-xs text-red-500">-{row.original.discountPercent}%</span>
           )}
@@ -331,7 +331,7 @@ export default function ProductsManager({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
               { label: "Nom", key: "name" },
-              { label: "Prix (€)", key: "price", type: "number" },
+              { label: "Prix (FCFA)", key: "price", type: "number" },
               { label: "Stock", key: "stock", type: "number" },
               { label: "Volume (ml)", key: "volumeMl", type: "number" },
               { label: "Remise (%)", key: "discountPercent", type: "number" },
