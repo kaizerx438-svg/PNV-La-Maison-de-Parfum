@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { toast } from "sonner";
@@ -196,7 +196,7 @@ export default function SavManager({ tickets: initialTickets = [] }: { tickets: 
                           <p className="text-sm text-muted-foreground">{row.original.message}</p>
                           {row.original.order && (
                             <p className="text-xs text-muted-foreground">
-                              Commande liee : #{row.original.order.id.slice(-8).toUpperCase()} — {row.original.order.totalAmount.toFixed(2)} €
+                              Commande liee : #{row.original.order.id.slice(-8).toUpperCase()} — {row.original.order.totalAmount.toFixed(2)} FCFA
                             </p>
                           )}
                         </div>

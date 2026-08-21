@@ -149,7 +149,7 @@ export default function CatalogueClient({ products }: CatalogueClientProps) {
         </Select>
       </div>
 
-      {/* Compteur résultats */}
+      {}
       <div className="mb-6 flex items-center justify-between">
         <p
           className="text-xs tracking-[0.2em] uppercase"

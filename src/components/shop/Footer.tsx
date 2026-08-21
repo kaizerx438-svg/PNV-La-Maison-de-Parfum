@@ -171,7 +171,7 @@ export default function Footer() {
                   className="text-xs"
                   style={{ color: "rgba(245,239,230,0.45)" }}
                 >
-                  +33 1 23 45 67 89
+                  +212 66 57 15 023
                 </span>
               </li>
               <li className="flex items-start gap-3">
@@ -183,7 +183,7 @@ export default function Footer() {
                   className="text-xs"
                   style={{ color: "rgba(245,239,230,0.45)" }}
                 >
-                  Lyon, France
+                  Libreville, Gabon 
                 </span>
               </li>
             </ul>
@@ -214,7 +214,7 @@ export default function Footer() {
               className="text-[9px] tracking-[0.4em] uppercase"
               style={{ color: "#C9A96E" }}
             >
-              Lyon · Parfums · Luxe
+              Libreville · Parfums · Luxe
             </p>
             <div style={{ width: "20px", height: "1px", background: "#C9A96E" }} />
           </div>
